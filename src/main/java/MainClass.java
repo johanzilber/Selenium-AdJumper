@@ -25,7 +25,7 @@ public class MainClass {
         LoginArea loginArea = new LoginArea(driver);
         PersonalAreaPage personalAreaPage = new PersonalAreaPage(driver);
 
-        loginArea.logIn("johanzilber@gmail.com", "33469Fy4");
+        loginArea.logIn("", "");
         personalAreaPage.clickYad2Btn();
         personalAreaPage.jumpAllAds();
 
