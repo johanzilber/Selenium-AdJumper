@@ -35,13 +35,13 @@ public class PersonalAreaPage {
         int counter = 3;
         for (WebElement currElement : driver.findElements(personalAd)) {
             String currAdText = currElement.getText();
-            sleepRandom();
+            sleepRandom(2,6);
             currElement.click();
-            sleepRandom();
+            sleepRandom(2,6);
             WebElement frame = driver.findElement(By.xpath("//*[@id=\"SearchButton\"]/table[4]/tbody/tr[1]/td[2]/table/tbody/tr[" + counter + "]/td/table/tbody/tr/td[2]/iframe"));
             counter+=2;
             driver.switchTo().frame(frame);
-            sleepRandom();
+            sleepRandom(2,6);
 
             if (!isHakpatzaDisabled()){
                 clickHAKPATZA();
@@ -49,13 +49,13 @@ public class PersonalAreaPage {
 
                 // todo: write to log
                 if (isHakpatzaDisabled()){
-                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Ok: Hukpatza button disabled for " + currAdText);
+                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Ok: Hakpatz" + currAdText);
                 }
                 else {
                     System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Error: Hukpatza button enabled for " + currAdText);
                 }
             } else {
-                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Idle: Hukpatza button disabled for " + currAdText);
+                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Idle: Hakpatza button disabled for " + currAdText);
             }
 
             driver.switchTo().parentFrame();
