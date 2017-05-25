@@ -33,7 +33,7 @@ public class MainClass {
         try {
             System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " STARTED");
             System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Going to sleep");
-            Utils.sleepRandom(0, 60*60);
+//            Utils.sleepRandom(0, 60*60);
             System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Wakening from sleep");
 
             driver = createWebDriver();
@@ -41,7 +41,7 @@ public class MainClass {
             PersonalAreaPage personalAreaPage = new PersonalAreaPage(driver);
 
             Utils.sleepRandom(5, 10);
-            loginArea.logIn("johanzilber@gmail.com", "33469Fy4");
+            loginArea.logIn("", "");
             personalAreaPage.clickYad2Btn();
             personalAreaPage.jumpAllAds();
 

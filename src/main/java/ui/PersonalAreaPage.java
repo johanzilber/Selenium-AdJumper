@@ -21,14 +21,14 @@ public class PersonalAreaPage {
         this.driver = driver;
     }
 
-    private static final By yad2Btn = By.xpath(".//*[@id=\"SearchButton\"]/table[2]/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr[1]/td[3]/a/img");
-    private static final By personalAd = By.xpath("//*[@id=\"ActiveLink\"]/td[5]");
+    private static final By yad2Btn = By.xpath("//*[@class=\"thumbnailNavBar\"]/div[3]");
+    private static final By personalAd = By.xpath("//*[@class=\"item item-color-1\"]");
     private static final By HakpatzaBtnNotEnabled = By.xpath(".//html/body/table/tbody/tr[3]/td/table/tbody/tr[2]/td/table/tbody/tr[1]/td[3]/img");
     private static final By HakpatzaBtn = By.xpath(".//html/body/table/tbody/tr[3]/td/table/tbody/tr[2]/td/table/tbody/tr[1]/td[3]/a");
 
     public void clickYad2Btn(){
         sleepRandom();
-        driver.findElement(yad2Btn).click();
+//        driver.findElement(yad2Btn).click();
     }
 
     public void jumpAllAds(){
