@@ -6,14 +6,11 @@ import org.openqa.selenium.WebElement;
 
 import static common.Utils.sleepRandom;
 
-/**
- * Created by eyal on 15/12/2016.
- */
 public class LoginArea {
 
-    WebDriver driver;
+    private WebDriver driver;
 
-    public LoginArea(WebDriver driver){
+    public LoginArea(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -25,26 +22,26 @@ public class LoginArea {
     private static final By loginAreaEnterBtn = By.xpath(".//div[4]/form/div/table/tbody/tr[4]/td/input");
 
 
-    public void selectUserEmailArea(){
+    private void selectUserEmailArea() {
         WebElement leftColumnArea = driver.findElement(leftColumn);
         leftColumnArea.findElement(loginEmailInput).click();
     }
 
-    public void selectUserPasswordArea(){
+    private void selectUserPasswordArea() {
         WebElement leftColumnArea = driver.findElement(leftColumn);
         leftColumnArea.findElement(loginPassword).click();
     }
 
-    public void writeEmailInField(String email){
+    private void writeEmailInField(String email) {
         WebElement leftColumnArea = driver.findElement(leftColumn);
         leftColumnArea.findElement(loginEmailInput).sendKeys(email);
     }
 
-    public void writePassword(String password) {
+    private void writePassword(String password) {
         driver.findElement(loginPasswordAfterClick).sendKeys(password);
     }
 
-    public void clickLoginOkBtn(){
+    private void clickLoginOkBtn() {
         WebElement leftColumnArea = driver.findElement(leftColumn);
         leftColumnArea.findElement(loginAreaEnterBtn).click();
     }
