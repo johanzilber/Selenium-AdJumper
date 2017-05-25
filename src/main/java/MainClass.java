@@ -20,7 +20,7 @@ public class MainClass {
         WebDriver driver;
         WebDriverFactory webDriverFactory = new WebDriverFactory();
         final String currentDir = System.getProperty("user.dir");
-        final File windowsChromeDriver = new File("c:" + File.separator + "_Dev" + File.separator + "chromedriver.exe");
+//        final File windowsChromeDriver = new File("c:" + File.separator + "_Dev" + File.separator + "chromedriver.exe");
         final File linuxChromeDriver = new File(File.separator + "home" + File.separator + "evegenyz" + File.separator + "yad2" + File.separator + "chromedriver");
         driver = webDriverFactory.createWebDriver(BrowserType.CHROME, linuxChromeDriver, null, null);
         driver.get("http://www.yad2.co.il/");
@@ -41,8 +41,9 @@ public class MainClass {
             PersonalAreaPage personalAreaPage = new PersonalAreaPage(driver);
 
             Utils.sleepRandom(5, 10);
-            loginArea.logIn("johanzilber@gmail.com", "33469Fy4");
+            loginArea.logIn("", "");
             personalAreaPage.clickYad2Btn();
+            personalAreaPage.closeWarningMessage();
             personalAreaPage.jumpAllAds();
 
         } catch (Exception e) {
