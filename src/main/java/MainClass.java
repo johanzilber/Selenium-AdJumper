@@ -41,7 +41,7 @@ public class MainClass {
             PersonalAreaPage personalAreaPage = new PersonalAreaPage(driver);
 
             Utils.sleepRandom(5, 10);
-            loginArea.logIn("johanzilber@gmail.com", "33469Fy4");
+            loginArea.logIn("", "");
             personalAreaPage.clickYad2Btn();
             personalAreaPage.closeWarningMessage();
             personalAreaPage.jumpAllAds();
