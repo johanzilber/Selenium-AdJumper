@@ -44,30 +44,13 @@ public class PersonalAreaPage {
 
     private int takpizAd(int rowsCounter, WebElement currElement) {
         String currAdText = currElement.getText().replace("\r\n", " ").replace("\n", " ");
+        sleepRandom(2, 4);
         currElement.click();
-        sleepRandom(2, 5);
         WebElement frame = driver.findElement(By.xpath("//*[@id=\"feed\"]/tbody/tr[" + rowsCounter + "]/td/iframe"));
         driver.switchTo().frame(frame);
-
-        if (!isHakpatzaDisabled()) {
-            clickHakpazaBtn();
-            sleepRandom(0, 3);
-
-            if (isHakpatzaDisabled()) {
-                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                        " Ok: Hakpatz" + currAdText);
-            } else {
-                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                        " Error: Hukpatza button enabled for " + currAdText);
-            }
-        } else {
-            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                    " Idle: Hakpatza button disabled for " + currAdText);
-        }
-
+        doTakpiz(currAdText);
         driver.switchTo().parentFrame();
-        currElement.click();
-        sleepRandom(0, 3);
+
         return rowsCounter + 2;
     }
 
@@ -87,9 +70,26 @@ public class PersonalAreaPage {
         return result;
     }
 
-    private void clickHakpazaBtn() {
+    private void doTakpiz(String adText) {
         try {
-            driver.findElement(HAKPATZA_BTN).click();
+            if (!isHakpatzaDisabled()) {
+
+                sleepRandom(2, 5);
+                driver.findElement(HAKPATZA_BTN).click();
+                sleepRandom(2, 5);
+
+                if (isHakpatzaDisabled()) {
+                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
+                            " Ok: Hakpatz" + adText);
+                } else {
+                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
+                            " Error: Hukpatza button enabled for " + adText);
+                }
+            } else {
+                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
+                        " Idle: Hakpatza button disabled for " + adText);
+            }
+
         } catch (Exception e) {
             System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
                     " The Ad was not hukpetza might be related to the time frame every 4 hours");
