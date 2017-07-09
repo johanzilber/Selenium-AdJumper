@@ -23,7 +23,7 @@ public class MainClass {
 //        final File windowsChromeDriver = new File("c:" + File.separator + "_Dev" + File.separator + "chromedriver.exe");
         final File linuxChromeDriver = new File(File.separator + "home" + File.separator + "evegenyz" + File.separator + "yad2" + File.separator + "chromedriver");
         driver = webDriverFactory.createWebDriver(BrowserType.CHROME, linuxChromeDriver, null, null);
-        driver.get("http://www.yad2.co.il/");
+        driver.get("https://my.yad2.co.il/");
         return driver;
     }
 
@@ -43,7 +43,12 @@ public class MainClass {
             Utils.sleepRandom(5, 10);
             loginArea.logIn("", "");
             personalAreaPage.clickYad2Btn();
-            personalAreaPage.closeWarningMessage();
+            personalAreaPage.jumpAllAds();
+
+            driver.navigate().back();
+
+            personalAreaPage.clickRehevBtn();
+            personalAreaPage.closeRehevMessage();
             personalAreaPage.jumpAllAds();
 
         } catch (Exception e) {
