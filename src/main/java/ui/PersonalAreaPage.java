@@ -17,13 +17,20 @@ public class PersonalAreaPage {
     }
 
     private static final By YAD_2_BTN = By.xpath("//*[@class=\"thumbnailNavBar\"]/div[3]");
+    private static final By REHEV_BTN = By.xpath("//*[@class=\"thumbnailNavBar\"]/div[1]");
     private static final By PERSONAL_AREA_MESSAGE = By.xpath("//*[@id=\"autoCashContainer\"]/div[4]/div");
+    private static final By REHEV_AREA_MESSAGE = By.xpath("//*[@id=\"autoCashContainer\"]/div[1]");
     private static final By PERSONAL_AD = By.xpath("//*[@class=\"item item-color-1\"]");
     private static final By HAKPATZA_BTN = By.id("bounceRatingOrderBtn");
 
     public void clickYad2Btn() {
         sleepRandom();
         driver.findElement(YAD_2_BTN).click();
+    }
+
+    public void clickRehevBtn() {
+        sleepRandom();
+        driver.findElement(REHEV_BTN).click();
     }
 
     public void closeWarningMessage() {
@@ -33,6 +40,16 @@ public class PersonalAreaPage {
         } catch (Exception e) {
             System.out.println("closeWarningMessage failed");
         }
+    }
+
+    public void closeRehevMessage() {
+        sleepRandom();
+        try {
+            driver.findElement(REHEV_AREA_MESSAGE).click();
+        } catch (Exception e) {
+            System.out.println("closeWarningMessage failed");
+        }
+        sleepRandom();
     }
 
     public void jumpAllAds() {
@@ -46,11 +63,15 @@ public class PersonalAreaPage {
         String currAdText = currElement.getText().replace("\r\n", " ").replace("\n", " ");
         sleepRandom(2, 4);
         currElement.click();
+        try {
         WebElement frame = driver.findElement(By.xpath("//*[@id=\"feed\"]/tbody/tr[" + rowsCounter + "]/td/iframe"));
         driver.switchTo().frame(frame);
         doTakpiz(currAdText);
         driver.switchTo().parentFrame();
-
+        } catch (Exception e) {
+            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
+                    " ERROR catched: " + e.getCause());
+        }
         return rowsCounter + 2;
     }
 
