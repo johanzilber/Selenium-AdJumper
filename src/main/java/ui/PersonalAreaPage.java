@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,21 +35,21 @@ public class PersonalAreaPage {
         driver.findElement(REHEV_BTN).click();
     }
 
-    public void closeWarningMessage() {
+    public void closeYad2WarningMessage() {
         sleepRandom();
         try {
             driver.findElement(PERSONAL_AREA_MESSAGE).click();
         } catch (Exception e) {
-            System.out.println("closeWarningMessage failed");
+            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Close yad2 warning message failed");
         }
     }
 
-    public void closeRehevMessage() {
+    public void closeRehevWarningMessage() {
         sleepRandom();
         try {
             driver.findElement(REHEV_AREA_MESSAGE).click();
         } catch (Exception e) {
-            System.out.println("closeWarningMessage failed");
+            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " Close rehev warning message failed");
         }
         sleepRandom();
     }
@@ -63,29 +65,28 @@ public class PersonalAreaPage {
         String currAdText = currElement.getText().replace("\r\n", " ").replace("\n", " ");
         sleepRandom(2, 4);
         currElement.click();
-        try {
         WebElement frame = driver.findElement(By.xpath("//*[@id=\"feed\"]/tbody/tr[" + rowsCounter + "]/td/iframe"));
         driver.switchTo().frame(frame);
         doTakpiz(currAdText);
         driver.switchTo().parentFrame();
-        } catch (Exception e) {
-            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                    " ERROR catched: " + e.getCause());
-        }
+        sleepRandom(1, 2);
+        currElement.click();
+
         return rowsCounter + 2;
     }
 
-    private boolean isHakpatzaDisabled() {
+    private boolean isHakpatzaEnabled(String adText) {
 
-        boolean result = false;
+        boolean result = true;
 
         try {
             if (driver.findElement(HAKPATZA_BTN).getCssValue("background").toString().contains("204")) {
-                result = true;
+                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " DISABLED: Hakpatza button disabled for " + adText);
+                result = false;
             }
         } catch (Exception e) {
-            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                    " Couldn't find hakpaza button");
+            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " NOT FOUND: Hakpatza button not found for " + adText);
+            result = false;
         }
 
         return result;
@@ -93,27 +94,18 @@ public class PersonalAreaPage {
 
     private void doTakpiz(String adText) {
         try {
-            if (!isHakpatzaDisabled()) {
-
+            if (isHakpatzaEnabled(adText)) {
                 sleepRandom(2, 5);
                 driver.findElement(HAKPATZA_BTN).click();
-                sleepRandom(2, 5);
-
-                if (isHakpatzaDisabled()) {
-                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                            " Ok: Hakpatz" + adText);
-                } else {
-                    System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                            " Error: Hukpatza button enabled for " + adText);
-                }
-            } else {
-                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                        " Idle: Hakpatza button disabled for " + adText);
+                System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " HUKPATZ: " + adText);
+                sleepRandom(3, 5);
             }
-
         } catch (Exception e) {
-            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) +
-                    " The Ad was not hukpetza might be related to the time frame every 4 hours");
+            System.out.println((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()) + " NOT HUKPATZ: " + adText);
+            System.out.println();
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            System.out.println(errors.toString());
         }
     }
 }

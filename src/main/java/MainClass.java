@@ -11,9 +11,6 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by eyal on 18/12/2016.
- */
 public class MainClass {
 
     private static WebDriver createWebDriver() {
@@ -23,7 +20,7 @@ public class MainClass {
 //        final File windowsChromeDriver = new File("c:" + File.separator + "_Dev" + File.separator + "chromedriver.exe");
         final File linuxChromeDriver = new File(File.separator + "home" + File.separator + "evegenyz" + File.separator + "yad2" + File.separator + "chromedriver");
         driver = webDriverFactory.createWebDriver(BrowserType.CHROME, linuxChromeDriver, null, null);
-        driver.get("https://my.yad2.co.il/");
+        driver.get("https://my.yad2.co.il/login.php");
         return driver;
     }
 
@@ -43,12 +40,13 @@ public class MainClass {
             Utils.sleepRandom(5, 10);
             loginArea.logIn("", "");
             personalAreaPage.clickYad2Btn();
+            personalAreaPage.closeYad2WarningMessage();
             personalAreaPage.jumpAllAds();
 
             driver.navigate().back();
 
             personalAreaPage.clickRehevBtn();
-            personalAreaPage.closeRehevMessage();
+            personalAreaPage.closeRehevWarningMessage();
             personalAreaPage.jumpAllAds();
 
         } catch (Exception e) {
